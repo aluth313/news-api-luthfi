@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app_luthfi/bloc/news_bloc.dart';
+import 'package:news_app_luthfi/bloc/search_bloc.dart';
 import 'package:news_app_luthfi/bloc/sort_bloc.dart';
 import 'package:news_app_luthfi/models/article.dart';
 import 'package:news_app_luthfi/services/news_services.dart';
@@ -25,6 +26,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => SortBloc(),
+        ),
+        BlocProvider(
+          create: (_) => SearchBloc(),
         ),
       ],
       child: MaterialApp(

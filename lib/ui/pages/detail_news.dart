@@ -94,7 +94,12 @@ class DetailNews extends StatelessWidget {
                   fit: BoxFit.cover,
                   imageUrl: article.urlToImage ??
                       'https://static.vecteezy.com/system/resources/thumbnails/004/216/831/original/3d-world-news-background-loop-free-video.jpg',
-                  placeholder: (context, url) => CircularProgressIndicator(),
+                  placeholder: (context, url) => Container(
+                    width: double.infinity,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
                   errorWidget: (context, url, error) => Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
@@ -114,7 +119,7 @@ class DetailNews extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                article.description ?? '-',
+                article.content ?? '-',
                 style: greyTextStyle.copyWith(
                   fontWeight: medium,
                 ),

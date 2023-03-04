@@ -12,11 +12,12 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   NewsBloc(this._newsServices) : super(NewsLoading()) {
     on<FetchNews>((event, emit) async {
       final category = event.category;
+      final isSorted = event.isSorted;
 
       emit(NewsLoading());
       try {
-        final articles = await _newsServices.fetchNews(category);
-        emit(NewsHasData(articles));
+        final articles = await _newsServices.fetchNews(category, isSorted);
+        articles.isNotEmpty ? emit(NewsHasData(articles)) : emit(NewsEmpty());
       } catch (e) {
         emit(NewsError(e.toString()));
       }
@@ -24,11 +25,12 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
     on<SearchNews>((event, emit) async {
       final query = event.query;
+      final isSorted = event.isSorted;
 
       emit(NewsLoading());
       try {
-        final articles = await _newsServices.searchNews(query);
-        emit(NewsHasData(articles));
+        final articles = await _newsServices.searchNews(query, isSorted);
+        articles.isNotEmpty ? emit(NewsHasData(articles)) : emit(NewsEmpty());
       } catch (e) {
         emit(NewsError(e.toString()));
       }

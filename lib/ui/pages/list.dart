@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:news_app_luthfi/bloc/news_bloc.dart';
+import 'package:news_app_luthfi/bloc/search_bloc.dart';
 import 'package:news_app_luthfi/bloc/sort_bloc.dart';
 import 'package:news_app_luthfi/shared/theme.dart';
 import 'package:news_app_luthfi/ui/widgets/card_news.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ListNews extends StatefulWidget {
@@ -22,9 +22,8 @@ class ListNews extends StatefulWidget {
 class _ListNewsState extends State<ListNews> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    context.read<NewsBloc>().add(FetchNews(widget.category));
+    context.read<NewsBloc>().add(FetchNews(widget.category, false));
     context.read<SortBloc>().add(IsSorted(false));
   }
 
@@ -79,71 +78,74 @@ class _ListNewsState extends State<ListNews> {
                   ),
                 ],
               ),
-              Container(
-                margin: EdgeInsets.only(top: 20),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        cursorColor: kBlackColor,
-                        decoration: InputDecoration(
-                          hintText: 'Search news for all categories',
-                          prefixIcon: Icon(Icons.search),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(17)),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(17),
-                            borderSide: BorderSide(color: kGreyColor),
-                          ),
+              BlocBuilder<SearchBloc, SearchState>(
+                builder: (contextSearch, stateSearch) {
+                  return BlocBuilder<SortBloc, SortState>(
+                    builder: (context, state) {
+                      return Container(
+                        margin: EdgeInsets.only(top: 20),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                cursorColor: kBlackColor,
+                                decoration: InputDecoration(
+                                  hintText: 'Search news for all categories',
+                                  prefixIcon: Icon(Icons.search),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(17)),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(17),
+                                    borderSide: BorderSide(color: kGreyColor),
+                                  ),
+                                ),
+                                onFieldSubmitted: (value) {
+                                  context
+                                      .read<SearchBloc>()
+                                      .add(SearchNewsWithQuery(value));
+                                  if (value.isNotEmpty) {
+                                    context.read<NewsBloc>().add(SearchNews(
+                                        value,
+                                        state is IsSortedNews ? true : false));
+                                  } else {
+                                    context.read<NewsBloc>().add(FetchNews(
+                                        widget.category,
+                                        state is IsSortedNews ? true : false));
+                                  }
+                                  ;
+                                },
+                              ),
+                            ),
+                            IconButton(
+                              tooltip: 'Sort By Date',
+                              onPressed: () {
+                                print(stateSearch);
+
+                                context.read<SortBloc>().add(IsSorted(
+                                    state is IsSortedNews ? false : true));
+                                if (stateSearch is SearchNotEmpty) {
+                                  context.read<NewsBloc>().add(SearchNews(
+                                      stateSearch.query,
+                                      state is IsSortedNews ? false : true));
+                                } else {
+                                  context.read<NewsBloc>().add(FetchNews(
+                                      widget.category,
+                                      state is IsSortedNews ? false : true));
+                                }
+                              },
+                              icon: Icon(
+                                Icons.filter_list_outlined,
+                                color: state is IsSortedNews
+                                    ? kBlueColor
+                                    : kBlackColor,
+                              ),
+                            ),
+                          ],
                         ),
-                        onFieldSubmitted: (value) {
-                          value.isNotEmpty
-                              ? context.read<NewsBloc>().add(SearchNews(value))
-                              : context
-                                  .read<NewsBloc>()
-                                  .add(FetchNews(widget.category));
-                          ;
-                        },
-                      ),
-                    ),
-                    BlocBuilder<SortBloc, SortState>(
-                      builder: (context, state) {
-                        return IconButton(
-                          tooltip: 'Sort By Date',
-                          onPressed: () {
-                            context.read<SortBloc>().add(
-                                IsSorted(state is IsSortedNews ? false : true));
-                            // DatePicker.showDatePicker(context,
-                            //     showTitleActions: true,
-                            //     minTime: DateTime(2000, 1, 1),
-                            //     maxTime: DateTime.now(),
-                            //     theme: DatePickerTheme(
-                            //         headerColor: Colors.orange,
-                            //         backgroundColor: kWhiteColor,
-                            //         itemStyle: TextStyle(
-                            //             color: kBlackColor,
-                            //             fontWeight: FontWeight.bold,
-                            //             fontSize: 18),
-                            //         doneStyle: TextStyle(
-                            //             color: kBlackColor,
-                            //             fontSize: 16)), onChanged: (date) {
-                            //   print('change $date in time zone ' +
-                            //       date.timeZoneOffset.inHours.toString());
-                            // }, onConfirm: (date) {
-                            //   print('confirm ');
-                            // }, currentTime: DateTime.now(), locale: LocaleType.en);
-                          },
-                          icon: Icon(
-                            Icons.filter_list_outlined,
-                            color: state is IsSortedNews
-                                ? kBlueColor
-                                : kBlackColor,
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
+                      );
+                    },
+                  );
+                },
               ),
               SizedBox(
                 height: 20,
@@ -159,11 +161,15 @@ class _ListNewsState extends State<ListNews> {
                       ),
                     ),
                   ),
-                  Text(
-                    widget.category,
-                    style: greyTextStyle.copyWith(
-                      fontWeight: medium,
-                    ),
+                  BlocBuilder<SearchBloc, SearchState>(
+                    builder: (context, state) {
+                      return Text(
+                        state is SearchNotEmpty ? 'All' : widget.category,
+                        style: greyTextStyle.copyWith(
+                          fontWeight: medium,
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -192,6 +198,10 @@ class _ListNewsState extends State<ListNews> {
                     return Center(
                       key: Key('error_message'),
                       child: Text(state.message),
+                    );
+                  } else if (state is NewsEmpty) {
+                    return Center(
+                      child: Text('Search Not Found.'),
                     );
                   } else {
                     return Center(child: Text('Failed'));
