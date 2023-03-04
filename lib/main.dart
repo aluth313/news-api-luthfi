@@ -33,12 +33,12 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomePage(),
+        home: const HomePage(),
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case '/':
               return MaterialPageRoute(
-                builder: (_) => HomePage(),
+                builder: (_) => const HomePage(),
               );
             case '/list':
               final category = settings.arguments as String;
@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
               );
             default:
               return MaterialPageRoute(builder: (_) {
-                return Scaffold(
+                return const Scaffold(
                   body: Center(
                     child: Text('Page not found :('),
                   ),

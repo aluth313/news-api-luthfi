@@ -24,10 +24,10 @@ class CardNews extends StatelessWidget {
       },
       child: Container(
         width: double.infinity,
-        margin: EdgeInsets.only(
+        margin: const EdgeInsets.only(
           bottom: 10,
         ),
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
             color: kWhiteColor, borderRadius: BorderRadius.circular(17)),
         child: Row(
@@ -38,7 +38,7 @@ class CardNews extends StatelessWidget {
                     imageBuilder: (context, imageProvider) => Container(
                           width: 100.0,
                           height: 100.0,
-                          margin: EdgeInsets.only(
+                          margin: const EdgeInsets.only(
                             right: 10,
                           ),
                           decoration: BoxDecoration(
@@ -47,11 +47,11 @@ class CardNews extends StatelessWidget {
                                 image: imageProvider, fit: BoxFit.cover),
                           ),
                         ),
-                    placeholder: (context, url) => CircularProgressIndicator(),
+                    placeholder: (context, url) => const CircularProgressIndicator(),
                     errorWidget: (context, url, error) => Container(
                           width: 100,
                           height: 100,
-                          margin: EdgeInsets.only(
+                          margin: const EdgeInsets.only(
                             right: 10,
                           ),
                           decoration: BoxDecoration(
@@ -62,7 +62,7 @@ class CardNews extends StatelessWidget {
                             //   fit: BoxFit.cover,
                             // ),
                           ),
-                          child: Center(
+                          child: const Center(
                               child: Text(
                             'Failed to load image',
                             textAlign: TextAlign.center,
@@ -71,12 +71,12 @@ class CardNews extends StatelessWidget {
                 : Container(
                     width: 100,
                     height: 100,
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                       right: 10,
                     ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(17),
-                      image: DecorationImage(
+                      image: const DecorationImage(
                         image: AssetImage('assets/images/news.jpg'),
                         fit: BoxFit.cover,
                       ),
@@ -108,7 +108,7 @@ class CardNews extends StatelessWidget {
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Text(

@@ -32,7 +32,7 @@ class _ListNewsState extends State<ListNews> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             vertical: 30,
             horizontal: 24,
           ),
@@ -44,13 +44,13 @@ class _ListNewsState extends State<ListNews> {
                   Container(
                     width: 50,
                     height: 50,
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                       right: 10,
                     ),
                     decoration: BoxDecoration(
                       color: kGreyBackgroundAvatarColor,
                       shape: BoxShape.circle,
-                      image: DecorationImage(
+                      image: const DecorationImage(
                         image: AssetImage(
                           'assets/images/avatar.png',
                         ),
@@ -83,7 +83,7 @@ class _ListNewsState extends State<ListNews> {
                   return BlocBuilder<SortBloc, SortState>(
                     builder: (context, state) {
                       return Container(
-                        margin: EdgeInsets.only(top: 20),
+                        margin: const EdgeInsets.only(top: 20),
                         child: Row(
                           children: [
                             Expanded(
@@ -91,7 +91,7 @@ class _ListNewsState extends State<ListNews> {
                                 cursorColor: kBlackColor,
                                 decoration: InputDecoration(
                                   hintText: 'Search news for all categories',
-                                  prefixIcon: Icon(Icons.search),
+                                  prefixIcon: const Icon(Icons.search),
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(17)),
                                   focusedBorder: OutlineInputBorder(
@@ -112,15 +112,12 @@ class _ListNewsState extends State<ListNews> {
                                         widget.category,
                                         state is IsSortedNews ? true : false));
                                   }
-                                  ;
                                 },
                               ),
                             ),
                             IconButton(
                               tooltip: 'Sort By Date',
                               onPressed: () {
-                                print(stateSearch);
-
                                 context.read<SortBloc>().add(IsSorted(
                                     state is IsSortedNews ? false : true));
                                 if (stateSearch is SearchNotEmpty) {
@@ -147,7 +144,7 @@ class _ListNewsState extends State<ListNews> {
                   );
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
@@ -173,13 +170,13 @@ class _ListNewsState extends State<ListNews> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               BlocBuilder<NewsBloc, NewsState>(
                 builder: (context, state) {
                   if (state is NewsLoading) {
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(),
                     );
                   } else if (state is NewsHasData) {
@@ -187,7 +184,7 @@ class _ListNewsState extends State<ListNews> {
                     return ListView.builder(
                       itemCount: state.result.length,
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         return CardNews(
                           article: state.result[index],
@@ -196,15 +193,15 @@ class _ListNewsState extends State<ListNews> {
                     );
                   } else if (state is NewsError) {
                     return Center(
-                      key: Key('error_message'),
+                      key: const Key('error_message'),
                       child: Text(state.message),
                     );
                   } else if (state is NewsEmpty) {
-                    return Center(
+                    return const Center(
                       child: Text('Search Not Found.'),
                     );
                   } else {
-                    return Center(child: Text('Failed'));
+                    return const Center(child: Text('Failed'));
                   }
                 },
               ),

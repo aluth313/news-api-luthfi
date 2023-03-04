@@ -13,7 +13,7 @@ class DetailNews extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: 24,
           vertical: 30,
         ),
@@ -26,7 +26,7 @@ class DetailNews extends StatelessWidget {
                 child: Container(
                   width: 50,
                   height: 50,
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                     bottom: 10,
                   ),
                   decoration: BoxDecoration(
@@ -35,7 +35,7 @@ class DetailNews extends StatelessWidget {
                       color: kGreyOutlineColor,
                     ),
                   ),
-                  child: Icon(Icons.arrow_back_outlined),
+                  child: const Icon(Icons.arrow_back_outlined),
                 ),
               ),
               Text(
@@ -45,7 +45,7 @@ class DetailNews extends StatelessWidget {
                   fontSize: 18,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
@@ -53,11 +53,11 @@ class DetailNews extends StatelessWidget {
                   Container(
                     width: 30,
                     height: 30,
-                    margin: EdgeInsets.only(right: 5),
+                    margin: const EdgeInsets.only(right: 5),
                     decoration: BoxDecoration(
                       color: kGreyBackgroundAvatarColor,
                       shape: BoxShape.circle,
-                      image: DecorationImage(
+                      image: const DecorationImage(
                         image: AssetImage(
                           'assets/images/avatar.png',
                         ),
@@ -83,7 +83,7 @@ class DetailNews extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               ClipRRect(
@@ -94,7 +94,7 @@ class DetailNews extends StatelessWidget {
                   fit: BoxFit.cover,
                   imageUrl: article.urlToImage ??
                       'https://static.vecteezy.com/system/resources/thumbnails/004/216/831/original/3d-world-news-background-loop-free-video.jpg',
-                  placeholder: (context, url) => Container(
+                  placeholder: (context, url) => const SizedBox(
                     width: double.infinity,
                     child: Center(
                       child: CircularProgressIndicator(),
@@ -106,7 +106,7 @@ class DetailNews extends StatelessWidget {
                       borderRadius: BorderRadius.circular(17),
                       color: kGreyBackgroundAvatarColor,
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         'Failed to load image',
                         textAlign: TextAlign.center,
@@ -115,7 +115,7 @@ class DetailNews extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(

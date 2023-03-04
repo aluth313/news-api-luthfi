@@ -12,8 +12,6 @@ class NewsServices {
     String urlApi = sortBy == true
         ? '$baseUrl/top-headlines?country=id&category=$category&sortBy=publishedAt&apiKey=$apiKey'
         : '$baseUrl/top-headlines?country=id&category=$category&apiKey=$apiKey';
-    print('url fetch');
-    print(urlApi);
     final response = await client.get(Uri.parse(urlApi));
 
     if (response.statusCode == 200) {
@@ -28,8 +26,6 @@ class NewsServices {
     String urlApi = sortBy == true
         ? '$baseUrl/everything?q=$query&sortBy=publishedAt&apiKey=$apiKey'
         : '$baseUrl/everything?q=$query&apiKey=$apiKey';
-    print('url search');
-    print(urlApi);
     final response = await client.get(Uri.parse(urlApi));
 
     if (response.statusCode == 200) {
