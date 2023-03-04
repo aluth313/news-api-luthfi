@@ -10,5 +10,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       final query = event.query;
       emit(query.isNotEmpty ? SearchNotEmpty(query) : SearchEmpty());
     });
+
+    on<SearchNewsEmpty>((event, emit) async {
+      emit(SearchEmpty());
+    });
   }
 }

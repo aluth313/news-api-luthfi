@@ -1,16 +1,11 @@
-# news_app_luthfi
+# SDK Flutter
 
-A new Flutter project.
+Project ini dibuat menggunakan sdk flutter versi 3.7.6
 
-## Getting Started
+# Fungsi Filter & Sort
 
-This project is a starting point for a Flutter application.
+untuk filter berdasarkan pencarian, cukup mengetikan 1 kata yang ingin dicari lalu tekan enter atau ceklis pada keypad.
 
-A few resources to get you started if this is your first Flutter project:
+untuk sort berdasarkan tanggal publish tekan tombol icon sort disamping form field
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Thank You :)

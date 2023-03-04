@@ -25,6 +25,7 @@ class _ListNewsState extends State<ListNews> {
     super.initState();
     context.read<NewsBloc>().add(FetchNews(widget.category, false));
     context.read<SortBloc>().add(IsSorted(false));
+    context.read<SearchBloc>().add(SearchNewsEmpty());
   }
 
   @override

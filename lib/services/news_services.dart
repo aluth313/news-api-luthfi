@@ -5,7 +5,7 @@ import 'package:news_app_luthfi/models/article.dart';
 
 class NewsServices {
   final String baseUrl = 'https://newsapi.org/v2';
-  final String apiKey = '5797017a125a4007a1e0bc73917ccecf';
+  final String apiKey = '8cb20d9aa9bb4a37a33bf61d60ca4a18';
   http.Client client = http.Client();
 
   Future<List<Article>> fetchNews(String category, bool sortBy) async {
